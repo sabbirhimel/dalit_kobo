@@ -12,10 +12,10 @@
  * the License.
  */
 
-package org.odk.collect.android.adapters;
+package org.koboc.collect.android.adapters;
 
-import org.odk.collect.android.logic.HierarchyElement;
-import org.odk.collect.android.views.HierarchyElementView;
+import org.koboc.collect.android.logic.HierarchyElement;
+import org.koboc.collect.android.views.HierarchyElementView;
 
 import android.content.Context;
 import android.view.View;

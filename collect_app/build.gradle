@@ -48,8 +48,8 @@ android {
             minSdkVersion 8
             applicationId 'org.koboc.collect.android'
             targetSdkVersion 8
-            versionCode 1053
-            versionName '1.4.7'
+            versionCode 1057
+            versionName '1.4.8'
         }
     }
     compileOptions {

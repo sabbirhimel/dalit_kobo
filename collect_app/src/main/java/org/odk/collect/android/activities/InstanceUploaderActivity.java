@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.odk.collect.android.activities;
+package org.koboc.collect.android.activities;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,13 +20,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.listeners.InstanceUploaderListener;
-import org.odk.collect.android.preferences.PreferencesActivity;
-import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
-import org.odk.collect.android.tasks.InstanceUploaderTask;
-import org.odk.collect.android.utilities.WebUtils;
+import org.koboc.collect.android.R;
+import org.koboc.collect.android.application.Collect;
+import org.koboc.collect.android.listeners.InstanceUploaderListener;
+import org.koboc.collect.android.preferences.PreferencesActivity;
+import org.koboc.collect.android.provider.InstanceProviderAPI.InstanceColumns;
+import org.koboc.collect.android.tasks.InstanceUploaderTask;
+import org.koboc.collect.android.utilities.WebUtils;
 
 import android.app.Activity;
 import android.app.AlertDialog;

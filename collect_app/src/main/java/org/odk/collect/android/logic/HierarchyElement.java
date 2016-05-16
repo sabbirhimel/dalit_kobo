@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.odk.collect.android.logic;
+package org.koboc.collect.android.logic;
 
 import org.javarosa.core.model.FormIndex;
 

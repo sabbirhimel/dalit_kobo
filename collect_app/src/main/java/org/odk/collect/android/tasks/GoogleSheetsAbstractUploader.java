@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.odk.collect.android.tasks;
+package org.koboc.collect.android.tasks;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,19 +31,19 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.exception.FormException;
-import org.odk.collect.android.picasa.AlbumEntry;
-import org.odk.collect.android.picasa.AlbumFeed;
-import org.odk.collect.android.picasa.PhotoEntry;
-import org.odk.collect.android.picasa.PicasaClient;
-import org.odk.collect.android.picasa.PicasaUrl;
-import org.odk.collect.android.picasa.UserFeed;
-import org.odk.collect.android.preferences.PreferencesActivity;
-import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
-import org.odk.collect.android.provider.InstanceProviderAPI;
-import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
+import org.koboc.collect.android.R;
+import org.koboc.collect.android.application.Collect;
+import org.koboc.collect.android.exception.FormException;
+import org.koboc.collect.android.picasa.AlbumEntry;
+import org.koboc.collect.android.picasa.AlbumFeed;
+import org.koboc.collect.android.picasa.PhotoEntry;
+import org.koboc.collect.android.picasa.PicasaClient;
+import org.koboc.collect.android.picasa.PicasaUrl;
+import org.koboc.collect.android.picasa.UserFeed;
+import org.koboc.collect.android.preferences.PreferencesActivity;
+import org.koboc.collect.android.provider.FormsProviderAPI.FormsColumns;
+import org.koboc.collect.android.provider.InstanceProviderAPI;
+import org.koboc.collect.android.provider.InstanceProviderAPI.InstanceColumns;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 

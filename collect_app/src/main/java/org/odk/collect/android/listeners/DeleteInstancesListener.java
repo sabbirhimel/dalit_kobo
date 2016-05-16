@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.odk.collect.android.listeners;
+package org.koboc.collect.android.listeners;
 
 /**
  * Callback interface invoked upon the completion of a DeleteInstancesTask

@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.odk.collect.android.tasks;
+package org.koboc.collect.android.tasks;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,14 +31,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.listeners.InstanceUploaderListener;
-import org.odk.collect.android.logic.PropertyManager;
-import org.odk.collect.android.preferences.PreferencesActivity;
-import org.odk.collect.android.provider.InstanceProviderAPI;
-import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
-import org.odk.collect.android.utilities.WebUtils;
+import org.koboc.collect.android.R;
+import org.koboc.collect.android.application.Collect;
+import org.koboc.collect.android.listeners.InstanceUploaderListener;
+import org.koboc.collect.android.logic.PropertyManager;
+import org.koboc.collect.android.preferences.PreferencesActivity;
+import org.koboc.collect.android.provider.InstanceProviderAPI;
+import org.koboc.collect.android.provider.InstanceProviderAPI.InstanceColumns;
+import org.koboc.collect.android.utilities.WebUtils;
 import org.opendatakit.httpclientandroidlib.Header;
 import org.opendatakit.httpclientandroidlib.HttpResponse;
 import org.opendatakit.httpclientandroidlib.HttpStatus;

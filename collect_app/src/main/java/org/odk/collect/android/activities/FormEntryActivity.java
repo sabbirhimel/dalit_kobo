@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.odk.collect.android.activities;
+package org.koboc.collect.android.activities;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -28,29 +28,29 @@ import org.javarosa.core.model.instance.TreeElement;
 import org.javarosa.form.api.FormEntryCaption;
 import org.javarosa.form.api.FormEntryController;
 import org.javarosa.form.api.FormEntryPrompt;
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.exception.JavaRosaException;
-import org.odk.collect.android.listeners.AdvanceToNextListener;
-import org.odk.collect.android.listeners.FormLoaderListener;
-import org.odk.collect.android.listeners.FormSavedListener;
-import org.odk.collect.android.listeners.SavePointListener;
-import org.odk.collect.android.logic.FormController;
-import org.odk.collect.android.logic.FormController.FailedConstraint;
-import org.odk.collect.android.preferences.AdminPreferencesActivity;
-import org.odk.collect.android.preferences.PreferencesActivity;
-import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
-import org.odk.collect.android.provider.InstanceProviderAPI;
-import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
-import org.odk.collect.android.tasks.FormLoaderTask;
-import org.odk.collect.android.tasks.SavePointTask;
-import org.odk.collect.android.tasks.SaveResult;
-import org.odk.collect.android.tasks.SaveToDiskTask;
-import org.odk.collect.android.utilities.CompatibilityUtils;
-import org.odk.collect.android.utilities.FileUtils;
-import org.odk.collect.android.utilities.MediaUtils;
-import org.odk.collect.android.views.ODKView;
-import org.odk.collect.android.widgets.QuestionWidget;
+import org.koboc.collect.android.R;
+import org.koboc.collect.android.application.Collect;
+import org.koboc.collect.android.exception.JavaRosaException;
+import org.koboc.collect.android.listeners.AdvanceToNextListener;
+import org.koboc.collect.android.listeners.FormLoaderListener;
+import org.koboc.collect.android.listeners.FormSavedListener;
+import org.koboc.collect.android.listeners.SavePointListener;
+import org.koboc.collect.android.logic.FormController;
+import org.koboc.collect.android.logic.FormController.FailedConstraint;
+import org.koboc.collect.android.preferences.AdminPreferencesActivity;
+import org.koboc.collect.android.preferences.PreferencesActivity;
+import org.koboc.collect.android.provider.FormsProviderAPI.FormsColumns;
+import org.koboc.collect.android.provider.InstanceProviderAPI;
+import org.koboc.collect.android.provider.InstanceProviderAPI.InstanceColumns;
+import org.koboc.collect.android.tasks.FormLoaderTask;
+import org.koboc.collect.android.tasks.SavePointTask;
+import org.koboc.collect.android.tasks.SaveResult;
+import org.koboc.collect.android.tasks.SaveToDiskTask;
+import org.koboc.collect.android.utilities.CompatibilityUtils;
+import org.koboc.collect.android.utilities.FileUtils;
+import org.koboc.collect.android.utilities.MediaUtils;
+import org.koboc.collect.android.views.ODKView;
+import org.koboc.collect.android.widgets.QuestionWidget;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -2779,7 +2779,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 
 	private void sendSavedBroadcast() {
 		Intent i = new Intent();
-		i.setAction("org.odk.collect.android.FormSaved");
+		i.setAction("org.koboc.collect.android.FormSaved");
 		this.sendBroadcast(i);
 	}
 

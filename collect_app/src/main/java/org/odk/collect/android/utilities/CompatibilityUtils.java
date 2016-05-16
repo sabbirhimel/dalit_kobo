@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.odk.collect.android.utilities;
+package org.koboc.collect.android.utilities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

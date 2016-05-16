@@ -12,18 +12,18 @@
  * the License.
  */
 
-package org.odk.collect.android.widgets;
+package org.koboc.collect.android.widgets;
 
 import java.io.File;
 
 import org.javarosa.core.model.data.IAnswerData;
 import org.javarosa.core.model.data.StringData;
 import org.javarosa.form.api.FormEntryPrompt;
-import org.odk.collect.android.R;
-import org.odk.collect.android.activities.FormEntryActivity;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.utilities.FileUtils;
-import org.odk.collect.android.utilities.MediaUtils;
+import org.koboc.collect.android.R;
+import org.koboc.collect.android.activities.FormEntryActivity;
+import org.koboc.collect.android.application.Collect;
+import org.koboc.collect.android.utilities.FileUtils;
+import org.koboc.collect.android.utilities.MediaUtils;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;

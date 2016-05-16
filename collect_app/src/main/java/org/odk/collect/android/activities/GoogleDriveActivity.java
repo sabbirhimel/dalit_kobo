@@ -16,7 +16,7 @@
  * @author Carl Hartung (chartung@nafundi.com)
  */
 
-package org.odk.collect.android.activities;
+package org.koboc.collect.android.activities;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -33,13 +33,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
-import org.odk.collect.android.R;
-import org.odk.collect.android.adapters.FileArrayAdapter;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.listeners.GoogleDriveFormDownloadListener;
-import org.odk.collect.android.listeners.TaskListener;
-import org.odk.collect.android.logic.DriveListItem;
-import org.odk.collect.android.preferences.PreferencesActivity;
+import org.koboc.collect.android.R;
+import org.koboc.collect.android.adapters.FileArrayAdapter;
+import org.koboc.collect.android.application.Collect;
+import org.koboc.collect.android.listeners.GoogleDriveFormDownloadListener;
+import org.koboc.collect.android.listeners.TaskListener;
+import org.koboc.collect.android.logic.DriveListItem;
+import org.koboc.collect.android.preferences.PreferencesActivity;
 
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;

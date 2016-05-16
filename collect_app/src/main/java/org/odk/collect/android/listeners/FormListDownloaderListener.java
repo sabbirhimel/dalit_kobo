@@ -12,9 +12,9 @@
  * the License.
  */
 
-package org.odk.collect.android.listeners;
+package org.koboc.collect.android.listeners;
 
-import org.odk.collect.android.logic.FormDetails;
+import org.koboc.collect.android.logic.FormDetails;
 
 import java.util.HashMap;
 

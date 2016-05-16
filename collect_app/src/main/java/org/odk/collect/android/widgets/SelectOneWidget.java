@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.odk.collect.android.widgets;
+package org.koboc.collect.android.widgets;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +25,12 @@ import org.javarosa.core.model.data.helper.Selection;
 import org.javarosa.form.api.FormEntryCaption;
 import org.javarosa.form.api.FormEntryPrompt;
 import org.javarosa.xpath.expr.XPathFuncExpr;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.external.ExternalDataUtil;
-import org.odk.collect.android.external.ExternalSelectChoice;
-import org.odk.collect.android.listeners.AudioPlayListener;
-import org.odk.collect.android.utilities.TextUtils;
-import org.odk.collect.android.views.MediaLayout;
+import org.koboc.collect.android.application.Collect;
+import org.koboc.collect.android.external.ExternalDataUtil;
+import org.koboc.collect.android.external.ExternalSelectChoice;
+import org.koboc.collect.android.listeners.AudioPlayListener;
+import org.koboc.collect.android.utilities.TextUtils;
+import org.koboc.collect.android.views.MediaLayout;
 
 import android.content.Context;
 import android.media.MediaPlayer;

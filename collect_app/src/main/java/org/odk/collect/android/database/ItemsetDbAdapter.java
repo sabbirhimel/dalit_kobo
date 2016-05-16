@@ -1,11 +1,11 @@
 
-package org.odk.collect.android.database;
+package org.koboc.collect.android.database;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import org.odk.collect.android.application.Collect;
+import org.koboc.collect.android.application.Collect;
 
 import android.content.ContentValues;
 import android.database.Cursor;

@@ -16,12 +16,12 @@
  * the License.
  */
 
-package org.odk.collect.android.external;
+package org.koboc.collect.android.external;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import org.apache.commons.io.FileUtils;
-import org.odk.collect.android.tasks.FormLoaderTask;
+import org.koboc.collect.android.tasks.FormLoaderTask;
 
 import java.io.File;
 import java.io.IOException;
