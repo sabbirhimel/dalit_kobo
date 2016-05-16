@@ -16,20 +16,20 @@
  * the License.
  */
 
-package org.odk.collect.android.external.handler;
+package org.koboc.collect.android.external.handler;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import org.javarosa.core.model.SelectChoice;
 import org.javarosa.core.model.condition.EvaluationContext;
 import org.javarosa.xpath.expr.XPathFuncExpr;
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.exception.ExternalDataException;
-import org.odk.collect.android.external.ExternalDataManager;
-import org.odk.collect.android.external.ExternalDataUtil;
-import org.odk.collect.android.external.ExternalSQLiteOpenHelper;
-import org.odk.collect.android.external.ExternalSelectChoice;
+import org.koboc.collect.android.R;
+import org.koboc.collect.android.application.Collect;
+import org.koboc.collect.android.exception.ExternalDataException;
+import org.koboc.collect.android.external.ExternalDataManager;
+import org.koboc.collect.android.external.ExternalDataUtil;
+import org.koboc.collect.android.external.ExternalSQLiteOpenHelper;
+import org.koboc.collect.android.external.ExternalSelectChoice;
 
 import java.util.*;
 

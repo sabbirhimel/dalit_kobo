@@ -1,4 +1,4 @@
-package org.odk.collect.android.receivers;
+package org.koboc.collect.android.receivers;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,16 +6,16 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.odk.collect.android.R;
-import org.odk.collect.android.activities.NotificationActivity;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.listeners.InstanceUploaderListener;
-import org.odk.collect.android.preferences.PreferencesActivity;
-import org.odk.collect.android.provider.InstanceProviderAPI;
-import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
-import org.odk.collect.android.tasks.GoogleSheetsAbstractUploader;
-import org.odk.collect.android.tasks.InstanceUploaderTask;
-import org.odk.collect.android.utilities.WebUtils;
+import org.koboc.collect.android.R;
+import org.koboc.collect.android.activities.NotificationActivity;
+import org.koboc.collect.android.application.Collect;
+import org.koboc.collect.android.listeners.InstanceUploaderListener;
+import org.koboc.collect.android.preferences.PreferencesActivity;
+import org.koboc.collect.android.provider.InstanceProviderAPI;
+import org.koboc.collect.android.provider.InstanceProviderAPI.InstanceColumns;
+import org.koboc.collect.android.tasks.GoogleSheetsAbstractUploader;
+import org.koboc.collect.android.tasks.InstanceUploaderTask;
+import org.koboc.collect.android.utilities.WebUtils;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -61,7 +61,7 @@ public class NetworkReceiver extends BroadcastReceiver implements InstanceUpload
 					uploadForms(context);
 				}
 			}
-		} else if (action.equals("org.odk.collect.android.FormSaved")) {
+		} else if (action.equals("org.koboc.collect.android.FormSaved")) {
 			ConnectivityManager connectivityManager = (ConnectivityManager) context
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
 			NetworkInfo ni = connectivityManager.getActiveNetworkInfo();

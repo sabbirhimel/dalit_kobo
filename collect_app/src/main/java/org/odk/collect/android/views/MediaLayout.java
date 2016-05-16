@@ -12,18 +12,18 @@
  * the License.
  */
 
-package org.odk.collect.android.views;
+package org.koboc.collect.android.views;
 
 import java.io.File;
 
 import org.javarosa.core.model.FormIndex;
 import org.javarosa.core.reference.InvalidReferenceException;
 import org.javarosa.core.reference.ReferenceManager;
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.listeners.AudioPlayListener;
-import org.odk.collect.android.utilities.FileUtils;
-import org.odk.collect.android.widgets.QuestionWidget;
+import org.koboc.collect.android.R;
+import org.koboc.collect.android.application.Collect;
+import org.koboc.collect.android.listeners.AudioPlayListener;
+import org.koboc.collect.android.utilities.FileUtils;
+import org.koboc.collect.android.widgets.QuestionWidget;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;

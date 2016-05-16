@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.odk.collect.android.utilities;
+package org.koboc.collect.android.utilities;
 
 import android.text.Html;
 import android.text.Spanned;

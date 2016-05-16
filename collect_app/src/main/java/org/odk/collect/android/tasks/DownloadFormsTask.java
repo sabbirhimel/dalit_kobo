@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.odk.collect.android.tasks;
+package org.koboc.collect.android.tasks;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -26,15 +26,15 @@ import java.util.zip.GZIPInputStream;
 
 import org.javarosa.xform.parse.XFormParser;
 import org.kxml2.kdom.Element;
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.exception.TaskCancelledException;
-import org.odk.collect.android.listeners.FormDownloaderListener;
-import org.odk.collect.android.logic.FormDetails;
-import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
-import org.odk.collect.android.utilities.DocumentFetchResult;
-import org.odk.collect.android.utilities.FileUtils;
-import org.odk.collect.android.utilities.WebUtils;
+import org.koboc.collect.android.R;
+import org.koboc.collect.android.application.Collect;
+import org.koboc.collect.android.exception.TaskCancelledException;
+import org.koboc.collect.android.listeners.FormDownloaderListener;
+import org.koboc.collect.android.logic.FormDetails;
+import org.koboc.collect.android.provider.FormsProviderAPI.FormsColumns;
+import org.koboc.collect.android.utilities.DocumentFetchResult;
+import org.koboc.collect.android.utilities.FileUtils;
+import org.koboc.collect.android.utilities.WebUtils;
 import org.opendatakit.httpclientandroidlib.Header;
 import org.opendatakit.httpclientandroidlib.HttpEntity;
 import org.opendatakit.httpclientandroidlib.HttpResponse;
@@ -214,7 +214,7 @@ public class DownloadFormsTask extends
      * Checks a form file whether it is a new one or if it matches an old one.
      *
      * @param formFile the form definition file
-     * @return a {@link org.odk.collect.android.tasks.DownloadFormsTask.UriResult} object
+     * @return a {@link org.koboc.collect.android.tasks.DownloadFormsTask.UriResult} object
      * @throws TaskCancelledException if the user cancels the task during the download.
      */
     private UriResult findExistingOrCreateNewUri(File formFile) throws TaskCancelledException {

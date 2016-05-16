@@ -9,7 +9,7 @@
 	the specific language governing permissions and limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.odk.collect.android"
+    package="org.koboc.collect.android"
     android:versionCode="1058"
     android:versionName="1.4.8" >
 
@@ -38,9 +38,9 @@
     -->
 
     <permission
-          android:name="org.odk.collect.android.permission.MAPS_RECEIVE"
+          android:name="org.koboc.collect.android.permission.MAPS_RECEIVE"
           android:protectionLevel="signature" />
-    <uses-permission android:name="org.odk.collect.android.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="org.koboc.collect.android.permission.MAPS_RECEIVE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
     <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="8" />
@@ -54,7 +54,7 @@
         android:smallScreens="true" />
 
     <application
-        android:name="org.odk.collect.android.application.Collect"
+        android:name="org.koboc.collect.android.application.Collect"
 		android:supportsRtl="true" 
         android:largeHeap="true"
         android:installLocation="auto"
@@ -64,12 +64,12 @@
 
         <provider
             android:exported="true"
-            android:name="org.odk.collect.android.provider.FormsProvider"
-            android:authorities="org.odk.collect.android.provider.odk.forms" />
+            android:name="org.koboc.collect.android.provider.FormsProvider"
+            android:authorities="org.koboc.collect.android.provider.odk.forms" />
         <provider
             android:exported="true"
-            android:name="org.odk.collect.android.provider.InstanceProvider"
-            android:authorities="org.odk.collect.android.provider.odk.instances" />
+            android:name="org.koboc.collect.android.provider.InstanceProvider"
+            android:authorities="org.koboc.collect.android.provider.odk.instances" />
 
         <activity
             android:name=".activities.MainMenuActivity"
@@ -222,7 +222,7 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="org.odk.collect.android.FormSaved" />
+                <action android:name="org.koboc.collect.android.FormSaved" />
             </intent-filter>
         </receiver>
 

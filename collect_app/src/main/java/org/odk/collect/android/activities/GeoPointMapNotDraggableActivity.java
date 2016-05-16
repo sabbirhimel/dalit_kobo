@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.odk.collect.android.activities;
+package org.koboc.collect.android.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -34,10 +34,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.utilities.InfoLogger;
-import org.odk.collect.android.widgets.GeoPointWidget;
+import org.koboc.collect.android.R;
+import org.koboc.collect.android.application.Collect;
+import org.koboc.collect.android.utilities.InfoLogger;
+import org.koboc.collect.android.widgets.GeoPointWidget;
 
 import java.text.DecimalFormat;
 import java.util.List;

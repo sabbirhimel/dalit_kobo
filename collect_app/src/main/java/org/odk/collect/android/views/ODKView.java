@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.odk.collect.android.views;
+package org.koboc.collect.android.views;
 
 import java.io.Serializable;
 import java.util.*;
@@ -30,16 +30,16 @@ import org.javarosa.core.model.data.IAnswerData;
 import org.javarosa.core.model.instance.TreeReference;
 import org.javarosa.form.api.FormEntryCaption;
 import org.javarosa.form.api.FormEntryPrompt;
-import org.odk.collect.android.R;
-import org.odk.collect.android.activities.FormEntryActivity;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.exception.ExternalParamsException;
-import org.odk.collect.android.exception.JavaRosaException;
-import org.odk.collect.android.external.ExternalAppsUtils;
-import org.odk.collect.android.logic.FormController;
-import org.odk.collect.android.widgets.IBinaryWidget;
-import org.odk.collect.android.widgets.QuestionWidget;
-import org.odk.collect.android.widgets.WidgetFactory;
+import org.koboc.collect.android.R;
+import org.koboc.collect.android.activities.FormEntryActivity;
+import org.koboc.collect.android.application.Collect;
+import org.koboc.collect.android.exception.ExternalParamsException;
+import org.koboc.collect.android.exception.JavaRosaException;
+import org.koboc.collect.android.external.ExternalAppsUtils;
+import org.koboc.collect.android.logic.FormController;
+import org.koboc.collect.android.widgets.IBinaryWidget;
+import org.koboc.collect.android.widgets.QuestionWidget;
+import org.koboc.collect.android.widgets.WidgetFactory;
 
 import android.content.Context;
 import android.os.Handler;

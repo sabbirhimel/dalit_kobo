@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.odk.collect.android.tasks;
+package org.koboc.collect.android.tasks;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -45,22 +45,22 @@ import org.javarosa.xform.parse.XFormParseException;
 import org.javarosa.xform.parse.XFormParser;
 import org.javarosa.xform.util.XFormUtils;
 import org.javarosa.xpath.XPathTypeMismatchException;
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.database.ItemsetDbAdapter;
-import org.odk.collect.android.external.ExternalAnswerResolver;
-import org.odk.collect.android.external.ExternalDataHandler;
-import org.odk.collect.android.external.ExternalDataManager;
-import org.odk.collect.android.external.ExternalDataManagerImpl;
-import org.odk.collect.android.external.ExternalDataReader;
-import org.odk.collect.android.external.ExternalDataReaderImpl;
-import org.odk.collect.android.external.handler.ExternalDataHandlerPull;
-import org.odk.collect.android.listeners.FormLoaderListener;
-import org.odk.collect.android.logic.FileReferenceFactory;
-import org.odk.collect.android.logic.FormController;
-import org.odk.collect.android.preferences.AdminPreferencesActivity;
-import org.odk.collect.android.utilities.FileUtils;
-import org.odk.collect.android.utilities.ZipUtils;
+import org.koboc.collect.android.R;
+import org.koboc.collect.android.application.Collect;
+import org.koboc.collect.android.database.ItemsetDbAdapter;
+import org.koboc.collect.android.external.ExternalAnswerResolver;
+import org.koboc.collect.android.external.ExternalDataHandler;
+import org.koboc.collect.android.external.ExternalDataManager;
+import org.koboc.collect.android.external.ExternalDataManagerImpl;
+import org.koboc.collect.android.external.ExternalDataReader;
+import org.koboc.collect.android.external.ExternalDataReaderImpl;
+import org.koboc.collect.android.external.handler.ExternalDataHandlerPull;
+import org.koboc.collect.android.listeners.FormLoaderListener;
+import org.koboc.collect.android.logic.FileReferenceFactory;
+import org.koboc.collect.android.logic.FormController;
+import org.koboc.collect.android.preferences.AdminPreferencesActivity;
+import org.koboc.collect.android.utilities.FileUtils;
+import org.koboc.collect.android.utilities.ZipUtils;
 
 import android.content.Intent;
 import android.database.Cursor;

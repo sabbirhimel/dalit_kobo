@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.odk.collect.android.picasa;
+package org.koboc.collect.android.picasa;
 
 
 import java.util.List;

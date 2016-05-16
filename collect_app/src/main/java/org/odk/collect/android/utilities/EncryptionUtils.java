@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.odk.collect.android.utilities;
+package org.koboc.collect.android.utilities;
 
 import java.io.*;
 import java.security.InvalidAlgorithmParameterException;
@@ -41,11 +41,11 @@ import org.kxml2.io.KXmlSerializer;
 import org.kxml2.kdom.Document;
 import org.kxml2.kdom.Element;
 import org.kxml2.kdom.Node;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.exception.EncryptionException;
-import org.odk.collect.android.logic.FormController.InstanceMetadata;
-import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
-import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
+import org.koboc.collect.android.application.Collect;
+import org.koboc.collect.android.exception.EncryptionException;
+import org.koboc.collect.android.logic.FormController.InstanceMetadata;
+import org.koboc.collect.android.provider.FormsProviderAPI.FormsColumns;
+import org.koboc.collect.android.provider.InstanceProviderAPI.InstanceColumns;
 
 import android.content.ContentResolver;
 import android.database.Cursor;

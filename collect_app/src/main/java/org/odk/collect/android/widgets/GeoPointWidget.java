@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.odk.collect.android.widgets;
+package org.koboc.collect.android.widgets;
 
 import java.text.DecimalFormat;
 
@@ -20,13 +20,13 @@ import android.widget.*;
 import org.javarosa.core.model.data.GeoPointData;
 import org.javarosa.core.model.data.IAnswerData;
 import org.javarosa.form.api.FormEntryPrompt;
-import org.odk.collect.android.R;
-import org.odk.collect.android.activities.FormEntryActivity;
-import org.odk.collect.android.activities.GeoPointActivity;
-import org.odk.collect.android.activities.GeoPointMapActivity;
-import org.odk.collect.android.activities.GeoPointMapNotDraggableActivity;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.utilities.CompatibilityUtils;
+import org.koboc.collect.android.R;
+import org.koboc.collect.android.activities.FormEntryActivity;
+import org.koboc.collect.android.activities.GeoPointActivity;
+import org.koboc.collect.android.activities.GeoPointMapActivity;
+import org.koboc.collect.android.activities.GeoPointMapNotDraggableActivity;
+import org.koboc.collect.android.application.Collect;
+import org.koboc.collect.android.utilities.CompatibilityUtils;
 
 import android.app.Activity;
 import android.content.Context;

@@ -12,11 +12,11 @@
  * the License.
  */
 
-package org.odk.collect.android.tasks;
+package org.koboc.collect.android.tasks;
 
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.listeners.DeleteFormsListener;
-import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
+import org.koboc.collect.android.application.Collect;
+import org.koboc.collect.android.listeners.DeleteFormsListener;
+import org.koboc.collect.android.provider.FormsProviderAPI.FormsColumns;
 
 import android.content.ContentResolver;
 import android.net.Uri;

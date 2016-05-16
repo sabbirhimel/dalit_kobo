@@ -12,11 +12,11 @@
  * the License.
  */
 
-package org.odk.collect.android.tasks;
+package org.koboc.collect.android.tasks;
 
 import java.io.IOException;
 
-import org.odk.collect.android.listeners.InstanceUploaderListener;
+import org.koboc.collect.android.listeners.InstanceUploaderListener;
 
 import android.content.Context;
 import android.os.AsyncTask;

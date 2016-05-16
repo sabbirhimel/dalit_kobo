@@ -12,12 +12,12 @@
  * the License.
  */
 
-package org.odk.collect.android.preferences;
+package org.koboc.collect.android.preferences;
 
 import java.util.ArrayList;
 
-import org.odk.collect.android.R;
-import org.odk.collect.android.utilities.UrlUtils;
+import org.koboc.collect.android.R;
+import org.koboc.collect.android.utilities.UrlUtils;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
