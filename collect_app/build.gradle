@@ -45,12 +45,18 @@ android {
     }
     productFlavors {
         kobo {
-            minSdkVersion 8
+            minSdkVersion 13
             applicationId 'org.koboc.collect.android'
-            targetSdkVersion 8
+            targetSdkVersion 13
             versionCode 1057
             versionName '1.4.8'
         }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
     compileOptions {
         sourceCompatibility javaVersion

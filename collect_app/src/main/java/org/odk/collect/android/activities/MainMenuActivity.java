@@ -20,9 +20,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.koboc.collect.android.Manifest;
 import org.koboc.collect.android.R;
 import org.koboc.collect.android.application.Collect;
 import org.koboc.collect.android.preferences.AdminPreferencesActivity;
@@ -30,16 +33,24 @@ import org.koboc.collect.android.preferences.PreferencesActivity;
 import org.koboc.collect.android.provider.InstanceProviderAPI;
 import org.koboc.collect.android.provider.InstanceProviderAPI.InstanceColumns;
 import org.koboc.collect.android.utilities.CompatibilityUtils;
+import org.koboc.collect.android.logic.FormDetails;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.ContentUris;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -56,6 +67,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.koboc.collect.android.provider.FormsProviderAPI.FormsColumns;
+import org.koboc.collect.android.tasks.DownloadFormsTask;
+import org.koboc.collect.android.tasks.DownloadFormListTask;
+import org.koboc.collect.android.listeners.FormListDownloaderListener;
+import org.koboc.collect.android.listeners.DiskSyncListener;
+import org.koboc.collect.android.listeners.FormDownloaderListener;
+import org.koboc.collect.android.tasks.DiskSyncTask;
 
 /**
  * Responsible for displaying buttons to launch the major activities. Launches
@@ -64,7 +82,7 @@ import android.widget.Toast;
  * @author Carl Hartung (carlhartung@gmail.com)
  * @author Yaw Anokwa (yanokwa@gmail.com)
  */
-public class MainMenuActivity extends Activity {
+public class MainMenuActivity extends Activity implements DiskSyncListener, FormListDownloaderListener, FormDownloaderListener {
 	private static final String t = "MainMenuActivity";
 
 	private static final int PASSWORD_DIALOG = 1;
@@ -74,14 +92,14 @@ public class MainMenuActivity extends Activity {
 	private static final int MENU_ADMIN = Menu.FIRST + 1;
 
 	// buttons
-	private Button mEnterDataButton;
-	private Button mManageFilesButton;
-	private Button mSendDataButton;
-	private Button mReviewDataButton;
-	private Button mGetFormsButton;
-
-	private View mReviewSpacer;
-	private View mGetFormsSpacer;
+//	private Button mEnterDataButton;
+//	private Button mManageFilesButton;
+//	private Button mSendDataButton;
+//	private Button mReviewDataButton;
+//	private Button mGetFormsButton;
+//
+//	private View mReviewSpacer;
+//	private View mGetFormsSpacer;
 
 	private AlertDialog mAlertDialog;
 	private SharedPreferences mAdminPreferences;
@@ -95,13 +113,137 @@ public class MainMenuActivity extends Activity {
 	private IncomingHandler mHandler = new IncomingHandler(this);
 	private MyContentObserver mContentObserver = new MyContentObserver();
 
+
+	private HashMap<String, FormDetails> mFormNamesAndURLs = new HashMap<String, org.koboc.collect.android.logic.FormDetails>();
+
+	private DownloadFormListTask mDownloadFormListTask;
+
 	private static boolean EXIT = true;
+
+	private ArrayList<HashMap<String, String>> mFormList = new ArrayList<HashMap<String,String>>();
+	// private static boolean DO_NOT_EXIT = false;
+
+	private DownloadFormsTask mDownloadFormsTask;
+	private DiskSyncTask mDiskSyncTask;
+	private ProgressDialog mProgressDialog;
 
 	// private static boolean DO_NOT_EXIT = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		/////////////////////dalit///////////////////////
+		setContentView(R.layout.dalit_main_screen);
+
+		SharedPreferences adminPreferences = getSharedPreferences(
+				AdminPreferencesActivity.ADMIN_PREFERENCES, 0);
+		SharedPreferences.Editor editor = adminPreferences.edit();
+		editor.putBoolean(AdminPreferencesActivity.KEY_AUTOSEND_WIFI, true);
+		editor.commit();
+		editor = adminPreferences.edit();
+		editor.putBoolean(AdminPreferencesActivity.KEY_AUTOSEND_NETWORK, true);
+		editor.commit();
+
+
+		Button button = (Button)findViewById(R.id.button1);
+		button.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				callformactivity("ICT_for_Dalit_Right", MainMenuActivity.this);
+
+
+//        finish();
+			}
+		});
+		Button button2 = (Button)findViewById(R.id.button2);
+
+		button2.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent start = new Intent(MainMenuActivity.this, org.koboc.collect.android.activities.webView.class);
+
+				startActivity(start.putExtra("urladdress","dalit_test.html"));
+//        finish();
+			}
+		});
+		Button button3 = (Button)findViewById(R.id.button3);
+
+		button3.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent start = new Intent(MainMenuActivity.this, org.koboc.collect.android.activities.webView.class);
+
+				startActivity(start.putExtra("urladdress","thana_contact.html"));
+//        finish();
+			}
+		});
+		Button button4 = (Button)findViewById(R.id.button4);
+
+		button4.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent start = new Intent(MainMenuActivity.this, org.koboc.collect.android.activities.webView.class);
+
+				startActivity(start.putExtra("urladdress","dalit_test.html"));
+//        finish();
+			}
+		});
+		Button button5 = (Button)findViewById(R.id.button5);
+
+		button5.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent start = new Intent(MainMenuActivity.this, org.koboc.collect.android.activities.webView.class);
+
+				startActivity(start.putExtra("urladdress","dalit_test.html"));
+//        finish();
+			}
+		});
+		Button button6 = (Button)findViewById(R.id.button6);
+
+		button6.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent start = new Intent(MainMenuActivity.this, org.koboc.collect.android.activities.webView.class);
+
+				startActivity(start.putExtra("urladdress","dalit_test.html"));
+//        finish();
+			}
+		});
+		Button button7 = (Button)findViewById(R.id.button7);
+
+		button7.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent start = new Intent(MainMenuActivity.this, org.koboc.collect.android.activities.webView.class);
+
+				startActivity(start.putExtra("urladdress","dalit_test.html"));
+//        finish();
+			}
+		});
+		Button button8 = (Button)findViewById(R.id.button8);
+
+		button8.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent start = new Intent(MainMenuActivity.this, org.koboc.collect.android.activities.webView.class);
+
+				startActivity(start.putExtra("urladdress","dalit_test.html"));
+//        finish();
+			}
+		});
+		Button button9 = (Button)findViewById(R.id.button9);
+
+		button9.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent start = new Intent(MainMenuActivity.this, org.koboc.collect.android.activities.webView.class);
+
+				startActivity(start.putExtra("urladdress","dalit_test.html"));
+//        finish();
+			}
+		});
+		////////////////////dalit///////////////////////
 
 		// must be at the beginning of any activity that can be called from an
 		// external intent
@@ -113,14 +255,14 @@ public class MainMenuActivity extends Activity {
 			return;
 		}
 
-		setContentView(R.layout.main_menu);
+//		setContentView(R.layout.main_menu);
 
-		{
-			// dynamically construct the "ODK Collect vA.B" string
-			TextView mainMenuMessageLabel = (TextView) findViewById(R.id.main_menu_header);
-			mainMenuMessageLabel.setText(Collect.getInstance()
-					.getVersionedAppName());
-		}
+//		{
+//			// dynamically construct the "ODK Collect vA.B" string
+//			TextView mainMenuMessageLabel = (TextView) findViewById(R.id.main_menu_header);
+//			mainMenuMessageLabel.setText(Collect.getInstance()
+//					.getVersionedAppName());
+//		}
 
 		setTitle(getString(R.string.app_name) + " > "
 				+ getString(R.string.main_menu));
@@ -141,92 +283,92 @@ public class MainMenuActivity extends Activity {
 			}
 		}
 
-		mReviewSpacer = findViewById(R.id.review_spacer);
-		mGetFormsSpacer = findViewById(R.id.get_forms_spacer);
-
+//		mReviewSpacer = findViewById(R.id.review_spacer);
+//		mGetFormsSpacer = findViewById(R.id.get_forms_spacer);
+//
 		mAdminPreferences = this.getSharedPreferences(
 				AdminPreferencesActivity.ADMIN_PREFERENCES, 0);
-
-		// enter data button. expects a result.
-		mEnterDataButton = (Button) findViewById(R.id.enter_data);
-		mEnterDataButton.setText(getString(R.string.enter_data_button));
-		mEnterDataButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Collect.getInstance().getActivityLogger()
-						.logAction(this, "fillBlankForm", "click");
-				Intent i = new Intent(getApplicationContext(),
-						FormChooserList.class);
-				startActivity(i);
-			}
-		});
-
-		// review data button. expects a result.
-		mReviewDataButton = (Button) findViewById(R.id.review_data);
-		mReviewDataButton.setText(getString(R.string.review_data_button));
-		mReviewDataButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Collect.getInstance().getActivityLogger()
-						.logAction(this, "editSavedForm", "click");
-				Intent i = new Intent(getApplicationContext(),
-						InstanceChooserList.class);
-				startActivity(i);
-			}
-		});
-
-		// send data button. expects a result.
-		mSendDataButton = (Button) findViewById(R.id.send_data);
-		mSendDataButton.setText(getString(R.string.send_data_button));
-		mSendDataButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Collect.getInstance().getActivityLogger()
-						.logAction(this, "uploadForms", "click");
-				Intent i = new Intent(getApplicationContext(),
-						InstanceUploaderList.class);
-				startActivity(i);
-			}
-		});
-
-		// manage forms button. no result expected.
-		mGetFormsButton = (Button) findViewById(R.id.get_forms);
-		mGetFormsButton.setText(getString(R.string.get_forms));
-		mGetFormsButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Collect.getInstance().getActivityLogger()
-						.logAction(this, "downloadBlankForms", "click");
-				SharedPreferences sharedPreferences = PreferenceManager
-						.getDefaultSharedPreferences(MainMenuActivity.this);
-				String protocol = sharedPreferences.getString(
-						PreferencesActivity.KEY_PROTOCOL, getString(R.string.protocol_odk_default));
-				Intent i = null;
-				if (protocol.equalsIgnoreCase(getString(R.string.protocol_google_sheets))) {
-					i = new Intent(getApplicationContext(),
-							GoogleDriveActivity.class);
-				} else {
-					i = new Intent(getApplicationContext(),
-							FormDownloadList.class);
-				}
-				startActivity(i);
-				
-			}
-		});
-
-		// manage forms button. no result expected.
-		mManageFilesButton = (Button) findViewById(R.id.manage_forms);
-		mManageFilesButton.setText(getString(R.string.manage_files));
-		mManageFilesButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Collect.getInstance().getActivityLogger()
-						.logAction(this, "deleteSavedForms", "click");
-				Intent i = new Intent(getApplicationContext(),
-						FileManagerTabs.class);
-				startActivity(i);
-			}
-		});
+//
+//		// enter data button. expects a result.
+//		mEnterDataButton = (Button) findViewById(R.id.enter_data);
+//		mEnterDataButton.setText(getString(R.string.enter_data_button));
+//		mEnterDataButton.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Collect.getInstance().getActivityLogger()
+//						.logAction(this, "fillBlankForm", "click");
+//				Intent i = new Intent(getApplicationContext(),
+//						FormChooserList.class);
+//				startActivity(i);
+//			}
+//		});
+//
+//		// review data button. expects a result.
+//		mReviewDataButton = (Button) findViewById(R.id.review_data);
+//		mReviewDataButton.setText(getString(R.string.review_data_button));
+//		mReviewDataButton.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Collect.getInstance().getActivityLogger()
+//						.logAction(this, "editSavedForm", "click");
+//				Intent i = new Intent(getApplicationContext(),
+//						InstanceChooserList.class);
+//				startActivity(i);
+//			}
+//		});
+//
+//		// send data button. expects a result.
+//		mSendDataButton = (Button) findViewById(R.id.send_data);
+//		mSendDataButton.setText(getString(R.string.send_data_button));
+//		mSendDataButton.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Collect.getInstance().getActivityLogger()
+//						.logAction(this, "uploadForms", "click");
+//				Intent i = new Intent(getApplicationContext(),
+//						InstanceUploaderList.class);
+//				startActivity(i);
+//			}
+//		});
+//
+//		// manage forms button. no result expected.
+//		mGetFormsButton = (Button) findViewById(R.id.get_forms);
+//		mGetFormsButton.setText(getString(R.string.get_forms));
+//		mGetFormsButton.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Collect.getInstance().getActivityLogger()
+//						.logAction(this, "downloadBlankForms", "click");
+//				SharedPreferences sharedPreferences = PreferenceManager
+//						.getDefaultSharedPreferences(MainMenuActivity.this);
+//				String protocol = sharedPreferences.getString(
+//						PreferencesActivity.KEY_PROTOCOL, getString(R.string.protocol_odk_default));
+//				Intent i = null;
+//				if (protocol.equalsIgnoreCase(getString(R.string.protocol_google_sheets))) {
+//					i = new Intent(getApplicationContext(),
+//							GoogleDriveActivity.class);
+//				} else {
+//					i = new Intent(getApplicationContext(),
+//							FormDownloadList.class);
+//				}
+//				startActivity(i);
+//
+//			}
+//		});
+//
+//		// manage forms button. no result expected.
+//		mManageFilesButton = (Button) findViewById(R.id.manage_forms);
+//		mManageFilesButton.setText(getString(R.string.manage_files));
+//		mManageFilesButton.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Collect.getInstance().getActivityLogger()
+//						.logAction(this, "deleteSavedForms", "click");
+//				Intent i = new Intent(getApplicationContext(),
+//						FileManagerTabs.class);
+//				startActivity(i);
+//			}
+//		});
 
 		// count for finalized instances
 		String selection = InstanceColumns.STATUS + "=? or "
@@ -268,7 +410,21 @@ public class MainMenuActivity extends Activity {
 		// don't need to set a content observer because it can't change in the
 		// background
 
-		updateButtons();
+//		updateButtons();
+		if(!checkformexists()){
+			downloadFormList();
+		}else{
+			mDiskSyncTask = (DiskSyncTask) getLastNonConfigurationInstance();
+			if (mDiskSyncTask == null) {
+				mProgressDialog = new ProgressDialog(this);
+				mProgressDialog.setTitle("processing disk for forms please wait");
+				mProgressDialog.show();
+				Log.i(t, "Starting new disk sync task");
+				mDiskSyncTask = new DiskSyncTask();
+				mDiskSyncTask.setDiskSyncListener(this);
+				mDiskSyncTask.execute((Void[]) null);
+			}
+		}
 	}
 
 	@Override
@@ -280,37 +436,37 @@ public class MainMenuActivity extends Activity {
 		boolean edit = sharedPreferences.getBoolean(
 				AdminPreferencesActivity.KEY_EDIT_SAVED, true);
 		if (!edit) {
-			mReviewDataButton.setVisibility(View.GONE);
-			mReviewSpacer.setVisibility(View.GONE);
+//			mReviewDataButton.setVisibility(View.GONE);
+//			mReviewSpacer.setVisibility(View.GONE);
 		} else {
-			mReviewDataButton.setVisibility(View.VISIBLE);
-			mReviewSpacer.setVisibility(View.VISIBLE);
+//			mReviewDataButton.setVisibility(View.VISIBLE);
+//			mReviewSpacer.setVisibility(View.VISIBLE);
 		}
 
 		boolean send = sharedPreferences.getBoolean(
 				AdminPreferencesActivity.KEY_SEND_FINALIZED, true);
 		if (!send) {
-			mSendDataButton.setVisibility(View.GONE);
+//			mSendDataButton.setVisibility(View.GONE);
 		} else {
-			mSendDataButton.setVisibility(View.VISIBLE);
+//			mSendDataButton.setVisibility(View.VISIBLE);
 		}
 
 		boolean get_blank = sharedPreferences.getBoolean(
 				AdminPreferencesActivity.KEY_GET_BLANK, true);
 		if (!get_blank) {
-			mGetFormsButton.setVisibility(View.GONE);
-			mGetFormsSpacer.setVisibility(View.GONE);
+//			mGetFormsButton.setVisibility(View.GONE);
+//			mGetFormsSpacer.setVisibility(View.GONE);
 		} else {
-			mGetFormsButton.setVisibility(View.VISIBLE);
-			mGetFormsSpacer.setVisibility(View.VISIBLE);
+//			mGetFormsButton.setVisibility(View.VISIBLE);
+//			mGetFormsSpacer.setVisibility(View.VISIBLE);
 		}
 
 		boolean delete_saved = sharedPreferences.getBoolean(
 				AdminPreferencesActivity.KEY_DELETE_SAVED, true);
 		if (!delete_saved) {
-			mManageFilesButton.setVisibility(View.GONE);
+//			mManageFilesButton.setVisibility(View.GONE);
 		} else {
-			mManageFilesButton.setVisibility(View.VISIBLE);
+//			mManageFilesButton.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -472,34 +628,34 @@ public class MainMenuActivity extends Activity {
 		return null;
 	}
 
-	private void updateButtons() {
-    if (mFinalizedCursor != null && !mFinalizedCursor.isClosed()) {
-      mFinalizedCursor.requery();
-      mCompletedCount = mFinalizedCursor.getCount();
-      if (mCompletedCount > 0) {
-        mSendDataButton.setText(getString(R.string.send_data_button, mCompletedCount));
-      } else {
-        mSendDataButton.setText(getString(R.string.send_data));
-      }
-    } else {
-      mSendDataButton.setText(getString(R.string.send_data));
-      Log.w(t, "Cannot update \"Send Finalized\" button label since the database is closed. Perhaps the app is running in the background?");
-    }
-
-    if (mSavedCursor != null && !mSavedCursor.isClosed()) {
-      mSavedCursor.requery();
-      mSavedCount = mSavedCursor.getCount();
-      if (mSavedCount > 0) {
-        mReviewDataButton.setText(getString(R.string.review_data_button,
-                mSavedCount));
-      } else {
-        mReviewDataButton.setText(getString(R.string.review_data));
-      }
-    } else {
-      mReviewDataButton.setText(getString(R.string.review_data));
-      Log.w(t, "Cannot update \"Edit Form\" button label since the database is closed. Perhaps the app is running in the background?");
-    }
-  }
+//	private void updateButtons() {
+//    if (mFinalizedCursor != null && !mFinalizedCursor.isClosed()) {
+//      mFinalizedCursor.requery();
+//      mCompletedCount = mFinalizedCursor.getCount();
+//      if (mCompletedCount > 0) {
+//        mSendDataButton.setText(getString(R.string.send_data_button, mCompletedCount));
+//      } else {
+//        mSendDataButton.setText(getString(R.string.send_data));
+//      }
+//    } else {
+//      mSendDataButton.setText(getString(R.string.send_data));
+//      Log.w(t, "Cannot update \"Send Finalized\" button label since the database is closed. Perhaps the app is running in the background?");
+//    }
+//
+//    if (mSavedCursor != null && !mSavedCursor.isClosed()) {
+//      mSavedCursor.requery();
+//      mSavedCount = mSavedCursor.getCount();
+//      if (mSavedCount > 0) {
+//        mReviewDataButton.setText(getString(R.string.review_data_button,
+//                mSavedCount));
+//      } else {
+//        mReviewDataButton.setText(getString(R.string.review_data));
+//      }
+//    } else {
+//      mReviewDataButton.setText(getString(R.string.review_data));
+//      Log.w(t, "Cannot update \"Edit Form\" button label since the database is closed. Perhaps the app is running in the background?");
+//    }
+//  }
 
 	/**
 	 * notifies us that something changed
@@ -532,7 +688,7 @@ public class MainMenuActivity extends Activity {
 		public void handleMessage(Message msg) {
 			MainMenuActivity target = mTarget.get();
 			if (target != null) {
-				target.updateButtons();
+//				target.updateButtons();
 			}
 		}
 	}
@@ -605,5 +761,186 @@ public class MainMenuActivity extends Activity {
 		}
 		return res;
 	}
+
+	private boolean checkformexists() {
+		// TODO Auto-generated method stub
+		File file = new File("/sdcard/odk/forms/ict_for_dalit_human_right.xml");
+//		File file2 = new File("/sdcard/odk/forms/Field Challenge Gathering.xml");
+		return file.exists();
+//		return false;
+	}
+	private void downloadFormList() {
+		ConnectivityManager connectivityManager =
+				(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo ni = connectivityManager.getActiveNetworkInfo();
+
+		if (ni == null || !ni.isConnected()) {
+			Toast.makeText(this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+		} else {
+			mProgressDialog = new ProgressDialog(this);
+			mFormNamesAndURLs = new HashMap<String, FormDetails>();
+			if (mProgressDialog != null) {
+				// This is needed because onPrepareDialog() is broken in 1.6.
+				mProgressDialog.setMessage(getString(R.string.please_wait));
+			}
+			mProgressDialog.show();
+//            showDialog(PROGRESS_DIALOG);
+
+			if (mDownloadFormListTask != null &&
+					mDownloadFormListTask.getStatus() != AsyncTask.Status.FINISHED) {
+				return; // we are already doing the download!!!
+			} else if (mDownloadFormListTask != null) {
+				mDownloadFormListTask.setDownloaderListener(null);
+				mDownloadFormListTask.cancel(true);
+				mDownloadFormListTask = null;
+			}
+
+			mDownloadFormListTask = new DownloadFormListTask();
+			mDownloadFormListTask.setDownloaderListener(MainMenuActivity.this);
+			mDownloadFormListTask.execute();
+		}
+	}
+	@Override
+	public void formListDownloadingComplete(HashMap<String, FormDetails> result) {
+		// TODO Auto-generated method stub
+//		 dismissDialog(PROGRESS_DIALOG);
+		mDownloadFormListTask.setDownloaderListener(null);
+		mDownloadFormListTask = null;
+
+		if (result == null) {
+			Log.e(t, "Formlist Downloading returned null.  That shouldn't happen");
+			// Just displayes "error occured" to the user, but this should never happen.
+//	            createAlertDialog(getString(R.string.load_remote_form_error),
+//	                getString(R.string.error_occured), EXIT);
+			return;
+		}
+
+		if (result.containsKey(DownloadFormListTask.DL_AUTH_REQUIRED)) {
+			// need authorization
+//	            showDialog(AUTH_DIALOG);
+		} else if (result.containsKey(DownloadFormListTask.DL_ERROR_MSG)) {
+			// Download failed
+			String dialogMessage =
+					getString(R.string.list_failed_with_error,
+							result.get(DownloadFormListTask.DL_ERROR_MSG).errorStr);
+			String dialogTitle = getString(R.string.load_remote_form_error);
+//	            createAlertDialog(dialogTitle, dialogMessage, DO_NOT_EXIT);
+		} else {
+			// Everything worked. Clear the list and add the results.
+//	        	mProgressDialog.dismiss();
+			mFormNamesAndURLs = result;
+
+
+			mFormList.clear();
+
+			ArrayList<String> ids = new ArrayList<String>(mFormNamesAndURLs.keySet());
+			ArrayList<FormDetails> filesToDownload = new ArrayList<FormDetails>();
+
+			for (int i = 0; i < result.size(); i++) {
+				String formDetailsKey = ids.get(i);
+				FormDetails details = mFormNamesAndURLs.get(formDetailsKey);
+				HashMap<String, String> item = new HashMap<String, String>();
+				item.put("FORMNAME", details.formName);
+				item.put("FORMID_DISPLAY",
+						((details.formVersion == null) ? "" : (getString(R.string.version) + " " + details.formVersion + " ")) +
+								"ID: " + details.formID );
+				item.put("FORMDETAIL_KEY", formDetailsKey);
+				Log.v("formnames", ""+details.formName);
+				filesToDownload.add(details);
+				// Insert the new form in alphabetical order.
+				if (mFormList.size() == 0) {
+					mFormList.add(item);
+				} else {
+					int j;
+					for (j = 0; j < mFormList.size(); j++) {
+						HashMap<String, String> compareMe = mFormList.get(j);
+						String name = compareMe.get("FORMNAME");
+						if (name.compareTo(mFormNamesAndURLs.get(ids.get(i)).formName) > 0) {
+							break;
+						}
+					}
+					mFormList.add(j, item);
+				}
+			}
+			mDownloadFormsTask = new DownloadFormsTask();
+			mDownloadFormsTask.setDownloaderListener(this);
+			mDownloadFormsTask.execute(filesToDownload);
+//	            mFormListAdapter.notifyDataSetChanged();
+		}
+
+	}
+
+
+	@Override
+	public void formsDownloadingComplete(HashMap<FormDetails, String> result) {
+		// TODO Auto-generated method stub
+		if (mDownloadFormsTask != null) {
+			mDownloadFormsTask.setDownloaderListener(null);
+		}
+
+		if (mProgressDialog.isShowing()) {
+			// should always be true here
+			mProgressDialog.dismiss();
+		}
+		mDiskSyncTask = (DiskSyncTask) getLastNonConfigurationInstance();
+		if (mDiskSyncTask == null) {
+			mProgressDialog = new ProgressDialog(this);
+			mProgressDialog.setTitle("processing disk for forms please wait");
+			mProgressDialog.show();
+			Log.i(t, "Starting new disk sync task");
+			mDiskSyncTask = new DiskSyncTask();
+			mDiskSyncTask.setDiskSyncListener(this);
+			mDiskSyncTask.execute((Void[]) null);
+		}
+	}
+
+	@Override
+	public void progressUpdate(String currentFile, int progress, int total) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void SyncComplete(String result) {
+		// TODO Auto-generated method stub
+		if(mProgressDialog.isShowing()){
+			mProgressDialog.dismiss();
+		}
+	}
+
+	public void callformactivity(String formname,Context con){
+		long idFormsTable = 3;
+		String sortOrder = FormsColumns.DISPLAY_NAME + " ASC, " + FormsColumns.JR_VERSION + " DESC";
+		Cursor c = ((Activity) con).managedQuery(FormsColumns.CONTENT_URI, null, null, null, sortOrder);
+		c.moveToFirst();
+		while (c.isAfterLast() == false)
+		{
+			for(int i = 0;i < c.getColumnNames().length;i++){
+				if(c.getColumnName(i).equalsIgnoreCase("displayName")){
+					if(c.getString(i).equalsIgnoreCase(formname)){
+						c.moveToLast();
+					}
+				}
+				if(c.getColumnName(i).equalsIgnoreCase("_id")){
+					idFormsTable =  Long.parseLong(c.getString(i));
+				}
+			}
+			c.moveToNext();
+		}
+		Uri formUri = ContentUris.withAppendedId(FormsColumns.CONTENT_URI, idFormsTable);
+		Collect.getInstance().getActivityLogger().logAction(this, "onListItemClick", formUri.toString());
+		String action = ((Activity) con).getIntent().getAction();
+		if (Intent.ACTION_PICK.equals(action)) {
+			// caller is waiting on a picked form
+			((Activity) con).setResult(Activity.RESULT_OK, new Intent().setData(formUri));
+		} else {
+			// caller wants to view/edit a form, so launch formentryactivity
+			startActivity(new Intent(Intent.ACTION_EDIT, formUri));
+		}
+//				((Activity) con).finish();
+
+	}
+
+
 
 }

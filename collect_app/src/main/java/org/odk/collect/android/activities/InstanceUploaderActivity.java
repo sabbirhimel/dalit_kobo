@@ -305,7 +305,7 @@ public class InstanceUploaderActivity extends Activity implements InstanceUpload
                     String submissionUrl = getString(R.string.default_odk_submission);
                     server =
                         settings.getString(PreferencesActivity.KEY_SERVER_URL,
-                            getString(R.string.default_server_url))
+                            getString(R.string.default_server_url)).replace("/m","")
                                 + settings.getString(PreferencesActivity.KEY_SUBMISSION_URL, submissionUrl);
                 }
 

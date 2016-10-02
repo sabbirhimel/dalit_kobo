@@ -13,32 +13,32 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button2"
+            android:id="@+id/button1"
             android:text="নতুন অভিযোগ দায়ের" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button3"
+            android:id="@+id/button2"
             android:text="অভিযোগের তালিকা " />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button"
+            android:id="@+id/button3"
             android:text="থানার মোবাইল নম্বর " />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button5"
+            android:id="@+id/button4"
             android:text="নিকটস্থ আইন সহায়তা সংস্থা " />
 
         <Button
             android:text="আইন সংক্রান্ত প্রয়োজনীয় তথ্য"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button4" />
+            android:id="@+id/button5" />
 
         <Button
             android:layout_width="match_parent"

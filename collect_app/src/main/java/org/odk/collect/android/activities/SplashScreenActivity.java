@@ -83,7 +83,7 @@ public class SplashScreenActivity extends Activity {
 
         boolean firstRun = mSharedPreferences.getBoolean(PreferencesActivity.KEY_FIRST_RUN, true);
         boolean showSplash =
-            mSharedPreferences.getBoolean(PreferencesActivity.KEY_SHOW_SPLASH, false);
+            mSharedPreferences.getBoolean(PreferencesActivity.KEY_SHOW_SPLASH, true);
         String splashPath =
             mSharedPreferences.getString(PreferencesActivity.KEY_SPLASH_PATH,
                 getString(R.string.default_splash_path));
@@ -95,7 +95,7 @@ public class SplashScreenActivity extends Activity {
 
             firstRun = true;
         }
-
+        showSplash = true;
         // do all the first run things
         if (firstRun || showSplash) {
             editor.putBoolean(PreferencesActivity.KEY_FIRST_RUN, false);

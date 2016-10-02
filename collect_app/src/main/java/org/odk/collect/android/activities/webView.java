@@ -1,10 +1,11 @@
-package org.odk.collect.android.activities;
+package org.koboc.collect.android.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebView;
 
-import com.android.mpower.kobo.R;
+import org.koboc.collect.android.R;
+
 
 /**
  * Created by raihan on 9/29/16.
