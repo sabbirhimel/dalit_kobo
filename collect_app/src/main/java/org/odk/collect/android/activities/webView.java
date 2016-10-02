@@ -19,6 +19,6 @@ public class webView extends Activity {
         String urladdress = getIntent().getStringExtra("urladdress");
         WebView wv;
         wv = (WebView) findViewById(R.id.webView1);
-        wv.loadUrl("file:///android_asset/"+urladdress);   // now it will not fail here
+        wv.loadUrl(urladdress);   // now it will not fail here
     }
 }

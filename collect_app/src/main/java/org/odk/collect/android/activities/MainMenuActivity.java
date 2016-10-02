@@ -173,7 +173,7 @@ public class MainMenuActivity extends Activity implements DiskSyncListener, Form
 			public void onClick(View v) {
 				Intent start = new Intent(MainMenuActivity.this, org.koboc.collect.android.activities.webView.class);
 
-				startActivity(start.putExtra("urladdress","thana_contact.html"));
+				startActivity(start.putExtra("urladdress","http://ctpi.mpower-social.com:8003/html/thana_contact.html"));
 //        finish();
 			}
 		});
@@ -184,7 +184,7 @@ public class MainMenuActivity extends Activity implements DiskSyncListener, Form
 			public void onClick(View v) {
 				Intent start = new Intent(MainMenuActivity.this, org.koboc.collect.android.activities.webView.class);
 
-				startActivity(start.putExtra("urladdress","dalit_test.html"));
+				startActivity(start.putExtra("urladdress"," http://ctpi.mpower-social.com:8003/html/nearby_legal.html"));
 //        finish();
 			}
 		});
@@ -195,7 +195,7 @@ public class MainMenuActivity extends Activity implements DiskSyncListener, Form
 			public void onClick(View v) {
 				Intent start = new Intent(MainMenuActivity.this, org.koboc.collect.android.activities.webView.class);
 
-				startActivity(start.putExtra("urladdress","dalit_test.html"));
+				startActivity(start.putExtra("urladdress"," http://ctpi.mpower-social.com:8003/html/lawrelatedinformation.html"));
 //        finish();
 			}
 		});
@@ -206,7 +206,7 @@ public class MainMenuActivity extends Activity implements DiskSyncListener, Form
 			public void onClick(View v) {
 				Intent start = new Intent(MainMenuActivity.this, org.koboc.collect.android.activities.webView.class);
 
-				startActivity(start.putExtra("urladdress","dalit_test.html"));
+				startActivity(start.putExtra("urladdress","http://ctpi.mpower-social.com:8003/html/law.html"));
 //        finish();
 			}
 		});
@@ -243,7 +243,16 @@ public class MainMenuActivity extends Activity implements DiskSyncListener, Form
 //        finish();
 			}
 		});
-		////////////////////dalit///////////////////////
+		Button button10 = (Button)findViewById(R.id.button10);
+
+		button10.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				callformactivity("সচরাচর জিজ্ঞাস্য প্রশ্ন", MainMenuActivity.this);
+//        finish();
+			}
+		});
+		////////////////////dalit///////////////////////সচরাচর জিজ্ঞাস্য প্রশ্ন
 
 		// must be at the beginning of any activity that can be called from an
 		// external intent
@@ -765,8 +774,8 @@ public class MainMenuActivity extends Activity implements DiskSyncListener, Form
 	private boolean checkformexists() {
 		// TODO Auto-generated method stub
 		File file = new File("/sdcard/odk/forms/ict_for_dalit_human_right.xml");
-//		File file2 = new File("/sdcard/odk/forms/Field Challenge Gathering.xml");
-		return file.exists();
+		File file2 = new File("/sdcard/odk/forms/FAQ.xml");
+		return file.exists()&&file2.exists();
 //		return false;
 	}
 	private void downloadFormList() {
@@ -909,35 +918,37 @@ public class MainMenuActivity extends Activity implements DiskSyncListener, Form
 	}
 
 	public void callformactivity(String formname,Context con){
-		long idFormsTable = 3;
-		String sortOrder = FormsColumns.DISPLAY_NAME + " ASC, " + FormsColumns.JR_VERSION + " DESC";
-		Cursor c = ((Activity) con).managedQuery(FormsColumns.CONTENT_URI, null, null, null, sortOrder);
-		c.moveToFirst();
-		while (c.isAfterLast() == false)
-		{
-			for(int i = 0;i < c.getColumnNames().length;i++){
-				if(c.getColumnName(i).equalsIgnoreCase("displayName")){
-					if(c.getString(i).equalsIgnoreCase(formname)){
-						c.moveToLast();
+		try {
+			long idFormsTable = -1;
+			String sortOrder = FormsColumns.DISPLAY_NAME + " ASC, " + FormsColumns.JR_VERSION + " DESC";
+			Cursor c = ((Activity) con).managedQuery(FormsColumns.CONTENT_URI, null, null, null, sortOrder);
+			c.moveToFirst();
+			while (c.isAfterLast() == false) {
+				for (int i = 0; i < c.getColumnNames().length; i++) {
+					if (c.getColumnName(i).equalsIgnoreCase("displayName")) {
+						if (c.getString(i).equalsIgnoreCase(formname)) {
+							c.moveToLast();
+						}
+					}
+					if (c.getColumnName(i).equalsIgnoreCase("_id")) {
+						idFormsTable = Long.parseLong(c.getString(i));
 					}
 				}
-				if(c.getColumnName(i).equalsIgnoreCase("_id")){
-					idFormsTable =  Long.parseLong(c.getString(i));
-				}
+				c.moveToNext();
 			}
-			c.moveToNext();
-		}
-		Uri formUri = ContentUris.withAppendedId(FormsColumns.CONTENT_URI, idFormsTable);
-		Collect.getInstance().getActivityLogger().logAction(this, "onListItemClick", formUri.toString());
-		String action = ((Activity) con).getIntent().getAction();
-		if (Intent.ACTION_PICK.equals(action)) {
-			// caller is waiting on a picked form
-			((Activity) con).setResult(Activity.RESULT_OK, new Intent().setData(formUri));
-		} else {
-			// caller wants to view/edit a form, so launch formentryactivity
-			startActivity(new Intent(Intent.ACTION_EDIT, formUri));
-		}
+			Uri formUri = ContentUris.withAppendedId(FormsColumns.CONTENT_URI, idFormsTable);
+			Collect.getInstance().getActivityLogger().logAction(this, "onListItemClick", formUri.toString());
+			String action = ((Activity) con).getIntent().getAction();
+			if (Intent.ACTION_PICK.equals(action)) {
+				// caller is waiting on a picked form
+				((Activity) con).setResult(Activity.RESULT_OK, new Intent().setData(formUri));
+			} else {
+				// caller wants to view/edit a form, so launch formentryactivity
+				startActivity(new Intent(Intent.ACTION_EDIT, formUri));
+			}
 //				((Activity) con).finish();
+		}catch (Exception e){Toast.makeText(this,"form not on device try reopening application",Toast.LENGTH_LONG).show();
+		}
 
 	}
 
