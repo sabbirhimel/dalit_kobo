@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button2"
+            android:text="নতুন অভিযোগ দায়ের" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button3"
+            android:text="অভিযোগের তালিকা " />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button"
+            android:text="থানার মোবাইল নম্বর " />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button5"
+            android:text="নিকটস্থ আইন সহায়তা সংস্থা " />
+
+        <Button
+            android:text="আইন সংক্রান্ত প্রয়োজনীয় তথ্য"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button4" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button6"
+            android:text="বাংলাদেশের প্রচলিত আইন" />
+
+        <Button
+            android:text="দলিত মানবাধিকার কর্মী"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button7" />
+
+        <Button
+            android:text="সরকারী সেবা প্রাপ্তিস্থান"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button8" />
+
+        <Button
+            android:text="দলিত মানবাধিকার সংস্থা"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button9" />
+    </LinearLayout>
+
+</LinearLayout>
