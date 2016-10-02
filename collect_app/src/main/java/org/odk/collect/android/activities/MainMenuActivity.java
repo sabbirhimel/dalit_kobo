@@ -160,9 +160,9 @@ public class MainMenuActivity extends Activity implements DiskSyncListener, Form
 		button2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent start = new Intent(MainMenuActivity.this, org.koboc.collect.android.activities.webView.class);
+				Intent start = new Intent(MainMenuActivity.this, question_status_list_Activity.class);
 
-				startActivity(start.putExtra("urladdress","dalit_test.html"));
+				startActivity(start);
 //        finish();
 			}
 		});
@@ -217,7 +217,7 @@ public class MainMenuActivity extends Activity implements DiskSyncListener, Form
 			public void onClick(View v) {
 				Intent start = new Intent(MainMenuActivity.this, org.koboc.collect.android.activities.webView.class);
 
-				startActivity(start.putExtra("urladdress","dalit_test.html"));
+				startActivity(start.putExtra("urladdress","http://ctpi.mpower-social.com:8003/html/hrworker.html"));
 //        finish();
 			}
 		});
@@ -228,7 +228,7 @@ public class MainMenuActivity extends Activity implements DiskSyncListener, Form
 			public void onClick(View v) {
 				Intent start = new Intent(MainMenuActivity.this, org.koboc.collect.android.activities.webView.class);
 
-				startActivity(start.putExtra("urladdress","dalit_test.html"));
+				startActivity(start.putExtra("urladdress","http://ctpi.mpower-social.com:8003/html/nearby_legal.html"));
 //        finish();
 			}
 		});
@@ -239,7 +239,7 @@ public class MainMenuActivity extends Activity implements DiskSyncListener, Form
 			public void onClick(View v) {
 				Intent start = new Intent(MainMenuActivity.this, org.koboc.collect.android.activities.webView.class);
 
-				startActivity(start.putExtra("urladdress","dalit_test.html"));
+				startActivity(start.putExtra("urladdress","http://ctpi.mpower-social.com:8003/html/hrorg.html"));
 //        finish();
 			}
 		});

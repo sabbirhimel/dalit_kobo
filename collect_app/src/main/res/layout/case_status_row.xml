@@ -13,20 +13,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/caseID"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textStyle="normal|bold"
+            android:layout_margin="5dp" />
 
         <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/casename"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textStyle="normal|bold"
+            android:textSize="18sp"
+            android:layout_margin="5dp" />
 
         <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/casestatus"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textStyle="normal|bold"
+            android:textSize="18sp"
+            android:layout_margin="5dp" />
     </LinearLayout>
 </LinearLayout>

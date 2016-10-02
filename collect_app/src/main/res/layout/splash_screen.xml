@@ -26,23 +26,26 @@
 		<LinearLayout
 android:orientation="horizontal"
 android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_weight="1">
+android:layout_height="wrap_content">
 
-<ImageView
+			<ImageView
+                android:src="@drawable/christianaid"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/imageView3"
+                android:layout_gravity="center_horizontal"
+				android:layout_weight="1" />
+
+			<ImageView
 android:src="@drawable/nulogo"
-android:layout_width="194dp"
+android:layout_width="0dp"
+	android:layout_weight="1"
 android:layout_height="wrap_content"
-android:id="@+id/imageView" />
+android:id="@+id/imageView"
+	android:scaleType="fitXY"
+	android:padding="5dp" />
 
-<ImageView
-android:src="@drawable/bdermlogo"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:id="@+id/imageView2"
-android:layout_weight="1" />
-
-</LinearLayout>
+		</LinearLayout>
 
 		<LinearLayout
 android:id="@+id/splash_default"
@@ -72,15 +75,18 @@ android:paddingLeft="7dip"
 android:paddingEnd="7dip"
 android:paddingRight="7dip"
 android:gravity="center_horizontal" />
-</LinearLayout>
+
+			</LinearLayout>
 </LinearLayout>
 
 		<ImageView
-            android:src="@drawable/christianaid"
-            android:layout_width="206dp"
-            android:layout_height="96dp"
-            android:id="@+id/imageView3"
-			android:layout_gravity="center_horizontal" />
+android:src="@drawable/bdermlogo"
+android:layout_width="200dp"
+android:layout_height="wrap_content"
+android:id="@+id/imageView2"
+			android:layout_gravity="center"
+			android:scaleType="fitXY"
+android:padding="5dp" />
 
 	</LinearLayout>
 
