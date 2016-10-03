@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>সচরাচর জিজ্ঞাস্য প্রশ্ন</h:title>
+    <model>
+      <instance>
+        <faq id="FAQ">
+          <formhub>
+            <uuid/>
+          </formhub>
+          <faq/>
+          <username/>
+          <meta>
+            <instanceID/>
+          </meta>
+        </faq>
+      </instance>
+      <bind nodeset="/faq/faq" type="string"/>
+      <bind jr:preload="property" jr:preloadParams="username" nodeset="/faq/username" type="string"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/faq/meta/instanceID" readonly="true()" type="string"/>
+      <bind calculate="'6a047c9cc4a64f389b99e22e29a3309a'" nodeset="/faq/formhub/uuid" type="string"/>
+    </model>
+  </h:head>
+  <h:body>
+    <input ref="/faq/faq">
+      <label>সচরাচর জিজ্ঞাস্য প্রশ্ন-
+
+বক্সে আপনার প্রশ্ন লিখে প্রেরণ চিহ্নিত বোতাম চাপুন</label>
+    </input>
+  </h:body>
+</h:html>

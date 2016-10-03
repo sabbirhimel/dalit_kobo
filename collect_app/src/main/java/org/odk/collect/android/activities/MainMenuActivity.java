@@ -17,8 +17,11 @@ package org.koboc.collect.android.activities;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +48,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.res.AssetManager;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
@@ -52,6 +56,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
@@ -149,6 +154,43 @@ public class MainMenuActivity extends Activity implements DiskSyncListener, Form
 		button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if(!checkformexists()){
+					copyFolder("forms","");
+					File folder = new File(Environment.getExternalStorageDirectory() +"/odk/forms/"+
+							File.separator + "ICT for Dalit Right-media");
+					boolean success = true;
+					if (!folder.exists()) {
+						success = folder.mkdirs();
+					}
+					if (success) {
+						try {
+							AssetManager assetManager = getAssets();
+							InputStream in = null;
+							OutputStream out = null;
+							// Do something on success
+							in = assetManager.open("forms/ICT for Dalit Right-media/" + "itemsets.csv");
+
+							out = new FileOutputStream(Environment.getExternalStorageDirectory() + "/odk/forms/ICT for Dalit Right-media/" + "itemsets.csv");
+
+							copyFile(in, out);
+						}catch (Exception e){
+
+						}
+
+					} else {
+						// Do something else on failure
+					}
+
+					if (mDiskSyncTask == null) {
+						mProgressDialog = new ProgressDialog(MainMenuActivity.this);
+						mProgressDialog.setTitle("processing disk for forms please wait");
+						mProgressDialog.show();
+						Log.i(t, "Starting new disk sync task");
+						mDiskSyncTask = new DiskSyncTask();
+						mDiskSyncTask.setDiskSyncListener(MainMenuActivity.this);
+						mDiskSyncTask.execute((Void[]) null);
+					}
+				}
 				callformactivity("ICT_for_Dalit_Right", MainMenuActivity.this);
 
 
@@ -428,6 +470,7 @@ public class MainMenuActivity extends Activity implements DiskSyncListener, Form
 				mProgressDialog = new ProgressDialog(this);
 				mProgressDialog.setTitle("processing disk for forms please wait");
 				mProgressDialog.show();
+				mProgressDialog.setCancelable(false);
 				Log.i(t, "Starting new disk sync task");
 				mDiskSyncTask = new DiskSyncTask();
 				mDiskSyncTask.setDiskSyncListener(this);
@@ -773,9 +816,17 @@ public class MainMenuActivity extends Activity implements DiskSyncListener, Form
 
 	private boolean checkformexists() {
 		// TODO Auto-generated method stub
-		File file = new File("/sdcard/odk/forms/ict_for_dalit_human_right.xml");
-		File file2 = new File("/sdcard/odk/forms/FAQ.xml");
-		return file.exists()&&file2.exists();
+		try {
+			File file = new File(Environment.getExternalStorageDirectory() + "/odk/forms/ICT for Dalit Right.xml");
+			File file2 = new File(Environment.getExternalStorageDirectory() + "/odk/forms/সচর চর জ জ ঞ স য প রশ ন.xml");
+
+
+			Log.v("return bool", "" + (file.exists() && file2.exists()));
+
+			return file.exists() && file2.exists();
+		}catch (Exception e){
+			return false;
+		}
 //		return false;
 	}
 	private void downloadFormList() {
@@ -793,6 +844,7 @@ public class MainMenuActivity extends Activity implements DiskSyncListener, Form
 				mProgressDialog.setMessage(getString(R.string.please_wait));
 			}
 			mProgressDialog.show();
+			mProgressDialog.setCancelable(false);
 //            showDialog(PROGRESS_DIALOG);
 
 			if (mDownloadFormListTask != null &&
@@ -918,8 +970,8 @@ public class MainMenuActivity extends Activity implements DiskSyncListener, Form
 	}
 
 	public void callformactivity(String formname,Context con){
-		try {
-			long idFormsTable = -1;
+
+			long idFormsTable = 3;
 			String sortOrder = FormsColumns.DISPLAY_NAME + " ASC, " + FormsColumns.JR_VERSION + " DESC";
 			Cursor c = ((Activity) con).managedQuery(FormsColumns.CONTENT_URI, null, null, null, sortOrder);
 			c.moveToFirst();
@@ -947,9 +999,81 @@ public class MainMenuActivity extends Activity implements DiskSyncListener, Form
 				startActivity(new Intent(Intent.ACTION_EDIT, formUri));
 			}
 //				((Activity) con).finish();
-		}catch (Exception e){Toast.makeText(this,"form not on device try reopening application",Toast.LENGTH_LONG).show();
-		}
 
+
+	}
+	private void copyFolder(String name,String destinationsubfolder) {
+		// "Name" is the name of your folder!
+		AssetManager assetManager = getAssets();
+		String[] files = null;
+
+		String state = Environment.getExternalStorageState();
+
+		if (Environment.MEDIA_MOUNTED.equals(state)) {
+			// We can read and write the media
+			// Checking file on assets subfolder
+			try {
+				files = assetManager.list(name);
+			} catch (IOException e) {
+				Log.e("ERROR", "Failed to get asset file list.", e);
+			}
+			// Analyzing all file on assets subfolder
+			for(String filename : files) {
+				InputStream in = null;
+				OutputStream out = null;
+				// First: checking if there is already a target folder
+				File folder = new File(Environment.getExternalStorageDirectory() + "/odk/forms/" + name);
+				boolean success = true;
+				if (!folder.exists()) {
+					success = folder.mkdir();
+				}
+				if (success) {
+					// Moving all the files on external SD
+					try {
+						in = assetManager.open(name + "/" +filename);
+						out = new FileOutputStream(Environment.getExternalStorageDirectory() + "/odk/" +destinationsubfolder+ name + "/" + filename);
+						Log.i("WEBVIEW", Environment.getExternalStorageDirectory() + "/odk/" +destinationsubfolder+ name + "/" + filename);
+						copyFile(in, out);
+						in.close();
+						in = null;
+						out.flush();
+						out.close();
+						out = null;
+					} catch(IOException e) {
+						Log.e("ERROR", "Failed to copy asset file: " + filename, e);
+					} finally {
+						// Edit 3 (after MMs comment)
+						try {
+							in.close();
+							in = null;
+							out.flush();
+							out.close();
+							out = null;
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+
+					}
+				}
+				else {
+					// Do something else on failure
+				}
+			}
+		} else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+			// We can only read the media
+		} else {
+			// Something else is wrong. It may be one of many other states, but all we need
+			// is to know is we can neither read nor write
+		}
+	}
+
+	// Method used by copyAssets() on purpose to copy a file.
+	private void copyFile(InputStream in, OutputStream out) throws IOException {
+		byte[] buffer = new byte[1024];
+		int read;
+		while((read = in.read(buffer)) != -1) {
+			out.write(buffer, 0, read);
+		}
 	}
 
 
